@@ -47,11 +47,11 @@ class Order:
                              "1000 and 9999 inclusive.")
             
         if not (self.side == BUY or self.side == SELL):
-            raise ValueError("Orders can only be on the 'BUY' or 'SELL' side.")
+            raise ValueError("Orders can only be on the BUY or SELL side.")
         
         if not (self.order_type == LIMIT or 
                 self.order_type == MARKET):
-            raise ValueError("Order types can only be 'LIMIT' or 'MARKET'.")
+            raise ValueError("Order types can only be LIMIT or MARKET.")
         
         if self.order_type == LIMIT and not self.price:
             raise ValueError("Limit orders must have a price.")

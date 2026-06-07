@@ -29,6 +29,10 @@ class Order:
     timestamp: int # follows the market data
     
     def __post_init__(self):
+        
+        if not self.symbol.isupper():
+            raise ValueError("Company ticker/symbol must be all uppercase.")
+        
         if self.quantity < 1:
             raise ValueError("Quantity must be at least 1.")
         
@@ -52,12 +56,15 @@ class Order:
         if self.order_type == LIMIT and not self.price:
             raise ValueError("Limit orders must have a price.")
         
-        if self.order_type == LIMIT and self.price < 0:
+        if self.order_type == LIMIT and self.price <= 0:
             raise ValueError("Price must be positive.")
         
         if self.order_type == MARKET and self.price:
             raise ValueError("Market orders must not have a price. \n"
                              "Are you trying to place a Limit order instead?")
+            
+        if self.timestamp <= 0:
+            raise ValueError("Timestamp must be positive.")
             
     def is_buy(self) -> bool:
         return (self.side == BUY)
@@ -92,5 +99,8 @@ class Order:
         return (
             f"Order {self.order_id}: {self.side} "
             f"{self.remaining_quantity}/{self.quantity} "
-            f"{self.symbol} @ {self.price}"
+            f"{self.symbol} @ {self.price} during {self.timestamp}"
         )
+        
+# Sample order for testing purposes
+# new_order = Order(12345678, 7223, "AAPL", BUY, LIMIT, 300.14, 10, 12)

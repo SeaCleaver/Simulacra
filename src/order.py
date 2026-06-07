@@ -23,7 +23,7 @@ class Order:
     trader_id: int # four digit
     symbol: str
     side: Side # BUY or SELL, to be changed to an enum later on
-    order_type: Type # LIMIT or MARKET order, also to be changed to enum
+    order_type: OrderType # LIMIT or MARKET order, also to be changed to enum
     price: float
     quantity: int
     timestamp: int # follows the market data

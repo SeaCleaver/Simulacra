@@ -6,7 +6,7 @@
 # Best ask is the lowest price sellers are asking for
 
 from collections import deque
-from order import Order, BUY, SELL
+from order import Order, BUY, SELL, MARKET, LIMIT
 
 class OrderBook:
     def __init__(self, symbol):
@@ -61,7 +61,7 @@ class OrderBook:
             return None
         return min(self.asks)
     
-    # gets the earliest bid order at the highest price
+    # gets the earlaskt bid order at the highest price
     def get_best_bid_order(self):
         best_bid = self.get_best_bid()
         
@@ -90,8 +90,8 @@ class OrderBook:
         if best_bid is None:
             return
         
-        while self.asks[best_bid] and self.asks[best_bid][0].is_filled():
-            self.asks[best_bid].popleft()
+        while self.bids[best_bid] and self.bids[best_bid][0].is_filled():
+            self.bids[best_bid].popleft()
             
         if not self.bids[best_bid]:
             del self.bids[best_bid]
@@ -117,7 +117,7 @@ class OrderBook:
         best_bid = self.get_best_bid()
         best_ask = self.get_best_ask()
         if best_bid != None and best_ask != None:
-            return best_ask - best_bid
+            return round(best_ask - best_bid, 5)
         
         return None
     
@@ -126,7 +126,7 @@ class OrderBook:
         best_bid = self.get_best_bid()
         best_ask = self.get_best_ask()
         if best_bid != None and best_ask != None:
-            return (best_ask + best_bid) / 2
+            return round((best_ask + best_bid) / 2, 5)
         
         return None
     
@@ -170,3 +170,25 @@ class OrderBook:
             ask_report = ask_report[:levels]
         
         return {"bids": bid_report, "asks": ask_report}
+    
+# from pprint import pprint
+    
+# All test code shall be written below this line
+# book1 = OrderBook('GOOG')
+# order1 = Order(12345678, 7223, "GOOG", BUY, LIMIT, 300.14, 10, 12)
+# order2 = Order(12345678, 7223, "GOOG", BUY, LIMIT, 300.13, 10, 13)
+# order3 = Order(87654321, 7223, "GOOG", SELL, LIMIT, 300.15, 10, 12)
+# book1.add_order(order1)
+# book1.add_order(order2)
+# book1.add_order(order3)
+# print(book1.get_report())
+# pprint(book1.bids)
+# print(book1.get_best_ask())
+# print(book1.get_best_ask_order())
+# print(book1.get_spread())
+# print(book1.get_mid_price())
+
+# order1.fill(10)
+
+# book1.remove_filled_order()
+# print(book1.get_report())

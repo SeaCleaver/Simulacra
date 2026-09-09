@@ -1,5 +1,5 @@
 # This file defines the Order class.
-# Dataclass makes the writing easier.
+# Dataclass makes writing easier.
 
 from dataclasses import dataclass
 from enum import Enum
@@ -22,8 +22,8 @@ class Order:
     order_id: int # eight digit
     trader_id: int # four digit
     symbol: str
-    side: Side # BUY or SELL, to be changed to an enum later on
-    order_type: OrderType # LIMIT or MARKET order, also to be changed to enum
+    side: Side # BUY or SELL
+    order_type: OrderType # LIMIT or MARKET order
     price: float
     quantity: int
     timestamp: int # follows the market data

@@ -1,3 +1,5 @@
+# This file defines the Trade class.
+
 from dataclasses import dataclass
 
 @dataclass

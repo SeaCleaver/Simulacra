@@ -50,19 +50,19 @@ class OrderBook:
             self.asks[order.price].append(order) 
         
     # gets the highest bid price
-    def get_best_bid(self):
+    def get_best_bid(self) -> float | None:
         if not self.bids:
             return None
         return max(self.bids)
     
     # gets the lowest ask price
-    def get_best_ask(self):
+    def get_best_ask(self) -> float | None:
         if not self.asks:
             return None
         return min(self.asks)
     
-    # gets the earlaskt bid order at the highest price
-    def get_best_bid_order(self):
+    # gets the earliest bid order at the highest price
+    def get_best_bid_order(self) -> Order | None:
         best_bid = self.get_best_bid()
         
         if best_bid == None:
@@ -71,7 +71,7 @@ class OrderBook:
         return self.bids[best_bid][0]
      
     # gets the earliest ask order at the lowest price
-    def get_best_ask_order(self):
+    def get_best_ask_order(self) -> Order | None:
         best_ask = self.get_best_ask()
         
         if best_ask == None:

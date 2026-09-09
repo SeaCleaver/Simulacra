@@ -13,7 +13,7 @@ class MatchingEngine:
         self._next_trade_id = 1000000
         
     def match(self, incoming: Order):
-        
+        new_trades = []
         while not incoming.is_filled() and self._can_trade(incoming):
             if incoming.is_sell():
                 resting: Order | None = self.book.get_best_bid_order()
@@ -27,16 +27,17 @@ class MatchingEngine:
                             resting.remaining_quantity)
             incoming.fill(to_fill)
             resting.fill(to_fill)
-            self._execute_trade(incoming, resting, to_fill)
+            trade = self._execute_trade(incoming, resting, to_fill)
+            new_trades.append(trade)
             
             # if statement used here to avoid walking through deque on each use
             if resting.is_filled():
                 self.book.remove_filled_order()
                 
-        if incoming.is_filled():
-            self.book.remove_filled_order()
-        else:
+        if not incoming.is_filled():
             self.book.add_order(incoming)
+            
+        return new_trades
             
     # determines whether the incoming order can be matched with other orders in
     # the book
@@ -62,8 +63,16 @@ class MatchingEngine:
     # records the trade
     def _execute_trade(self, incoming: Order, resting: Order, quantity: int):
         timestamp = int(time.time())
-        new = Trade(self._next_trade_id, self.book.symbol, resting.price, 
-                    quantity, incoming.trader_id, resting.trader_id, 
-                    incoming.order_id, resting.order_id, timestamp)
+        if incoming.is_buy():
+            new = Trade(self._next_trade_id, self.book.symbol, resting.price, 
+                        quantity, incoming.trader_id, resting.trader_id, 
+                        incoming.order_id, resting.order_id, timestamp)
+        else:
+            new = Trade(self._next_trade_id, self.book.symbol, resting.price, 
+                        quantity, resting.trader_id, incoming.trader_id, 
+                        resting.order_id, incoming.order_id, timestamp)
+            
         self._next_trade_id += 1
         self.trades.append(new)
+        
+        return new

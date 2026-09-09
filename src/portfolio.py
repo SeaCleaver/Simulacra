@@ -14,12 +14,14 @@ class Portfolio:
     def process_trade(self, trade: Trade):
         if self.trader_id == trade.buyer_id:
             self.cash -= trade.price * trade.quantity
+            self.positions[trade.symbol] = (self.positions.get(trade.symbol, 0) 
+                                            + trade.quantity)
             self.trades.append(trade)
-            self.positions[trade.symbol] += trade.quantity
             
         elif self.trader_id == trade.seller_id:
             self.cash += trade.price * trade.quantity
-            self.positions[trade.symbol] -= trade.quantity
+            self.positions[trade.symbol] = (self.positions.get(trade.symbol, 0) 
+                                            - trade.quantity)
             self.trades.append(trade)
             
         else:

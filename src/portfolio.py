@@ -4,7 +4,7 @@ from trade import Trade
 
 
 class Portfolio:
-    def __init__(self, trader_id, initial_cash):
+    def __init__(self, trader_id: int, initial_cash: float):
         self.trader_id = trader_id
         self.initial_cash = initial_cash
         self.cash = initial_cash

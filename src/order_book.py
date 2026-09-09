@@ -121,6 +121,7 @@ class OrderBook:
         
         return None
     
+    # halfway point between current bid and ask prices
     def get_mid_price(self):
         
         best_bid = self.get_best_bid()

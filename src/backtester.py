@@ -13,13 +13,14 @@ class Backtester:
         self.portfolio = portfolio
         self.strategy = strategy
         self.price_history = []
+        self.pnl_history = []
         
     # main method for running everything
     def run(self, events: list[Order]):
         for event in events:
             # updating price history
             mid = self.engine.book.get_mid_price()
-            if mid:
+            if mid is not None:
                 self.price_history.append(mid)
             
             # get action from strategy
@@ -36,6 +37,8 @@ class Backtester:
             market_trades = self.engine.match(event)
             for trade in market_trades:
                 self.portfolio.process_trade(trade)
+                
+            self.pnl_history.append(self.portfolio.get_realised_pnl())
                 
     
     # retrieve results from the portfolio

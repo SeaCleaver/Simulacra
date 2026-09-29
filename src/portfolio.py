@@ -2,7 +2,6 @@
 
 from trade import Trade
 
-
 class Portfolio:
     def __init__(self, trader_id: int, initial_cash: float):
         self.trader_id = trader_id

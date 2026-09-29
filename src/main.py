@@ -1,5 +1,7 @@
 # sets everything up, runs the backtest, writes results
 # test writing may reference this file
+# remember to change names of write output files so as to not overwrite the 
+# main file
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -33,17 +35,17 @@ trades_data = [
      "quantity": t.quantity, "timestamp": t.timestamp}
     for t in portfolio.trades
 ]
-pd.DataFrame(trades_data).to_csv("trades.csv", index=False)
+pd.DataFrame(trades_data).to_csv("../results/trades.csv", index=False)
 
 # pnl.csv
-pd.DataFrame({"pnl": backtester.pnl_history}).to_csv("pnl.csv", index=False)
+pd.DataFrame({"pnl": backtester.pnl_history}).to_csv("../results/pnl.csv", index=False)
 
 # pnl_chart.png
 plt.plot(backtester.pnl_history)
 plt.xlabel("Step")
 plt.ylabel("Realised PnL")
 plt.title("Strategy PnL Over Time")
-plt.savefig("pnl_chart.png")
+plt.savefig("../results/pnl_chart.png")
 
 # print summary
 print(backtester.get_results())

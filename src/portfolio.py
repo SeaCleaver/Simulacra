@@ -24,8 +24,8 @@ class Portfolio:
             self.trades.append(trade)
             
         else:
-            raise ValueError("Trader ID given is not involved in the given "
-                             "trade.")
+            # don't update portfolio on trades that do not belong the trader
+            return
     
     def get_realised_pnl(self):
         return self.cash - self.initial_cash

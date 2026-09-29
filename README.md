@@ -1,6 +1,6 @@
 Hi Guys!
 
-This is Simulacra. A project built by SeaCleaver (Conan) to help understand 
+This is Simulacra. A project built by SeaCleaver (Conan) to understand 
 trading systems and how trading bots work.
 
 The plan right now is to build a Limit Order Backtesting Engine. This engine 

@@ -4,7 +4,6 @@
 from order import Order
 from trade import Trade
 from order_book import OrderBook
-import time
 
 class MatchingEngine:
     def __init__(self, book: OrderBook):
@@ -62,15 +61,14 @@ class MatchingEngine:
         
     # records the trade
     def _execute_trade(self, incoming: Order, resting: Order, quantity: int):
-        timestamp = int(time.time())
         if incoming.is_buy():
             new = Trade(self._next_trade_id, self.book.symbol, resting.price, 
                         quantity, incoming.trader_id, resting.trader_id, 
-                        incoming.order_id, resting.order_id, timestamp)
+                        incoming.order_id, resting.order_id, incoming.timestamp)
         else:
             new = Trade(self._next_trade_id, self.book.symbol, resting.price, 
                         quantity, resting.trader_id, incoming.trader_id, 
-                        resting.order_id, incoming.order_id, timestamp)
+                        resting.order_id, incoming.order_id, incoming.timestamp)
             
         self._next_trade_id += 1
         self.trades.append(new)

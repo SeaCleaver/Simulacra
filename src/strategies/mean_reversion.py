@@ -6,7 +6,7 @@
 import numpy as np
 from order import Order, BUY, SELL, LIMIT
 from order_book import OrderBook
-from strategy import Strategy
+from .strategy import Strategy
 
 class MeanReversionStrategy(Strategy):
     def __init__(self, trader_id, lookback, threshold, quantity, tick=0.01):

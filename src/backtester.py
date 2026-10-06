@@ -3,7 +3,7 @@
 
 from matching_engine import MatchingEngine
 from portfolio import Portfolio
-from strategy import Strategy
+from strategies.strategy import Strategy
 from order import Order
 
 class Backtester:

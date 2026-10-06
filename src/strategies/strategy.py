@@ -1,7 +1,7 @@
 # holds the strategy class. 
 # any future strategies should build from this class.
 
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from order import Order
 from order_book import OrderBook
 

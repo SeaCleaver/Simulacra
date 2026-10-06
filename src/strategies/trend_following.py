@@ -6,7 +6,7 @@
 import numpy as np
 from order import Order, BUY, SELL, LIMIT
 from order_book import OrderBook
-from strategy import Strategy
+from .strategy import Strategy
 
 class TrendFollowingStrategy(Strategy):
     def __init__(self, trader_id, lookback, quantity, tick=0.01):

@@ -1,7 +1,6 @@
 # sets everything up, runs the backtest, writes results
-# test writing may reference this file
-# remember to change names of write output files so as to not overwrite the 
-# main file
+# remember to change names of write output files to prevent overwriting other
+# results
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,7 +9,7 @@ from order import Order, BUY, SELL, LIMIT
 from order_book import OrderBook
 from matching_engine import MatchingEngine
 from portfolio import Portfolio
-from trend_following import TrendFollowingStrategy
+from strategies.trend_following import TrendFollowingStrategy
 from backtester import Backtester
 
 # instantiate objects
@@ -22,8 +21,18 @@ backtester = Backtester(engine, portfolio, strategy)
 
 # insert market feed (add more events if needed)
 events = [
-    Order(10000001, 2001, "AAPL", SELL, LIMIT, 100.00, 10, 1),
-    Order(10000002, 2002, "AAPL", BUY,  LIMIT, 100.00, 10, 2),
+    Order(20000001, 2002, "AAPL", BUY,  LIMIT,  99.00, 10, 1),
+    Order(20000002, 2001, "AAPL", SELL, LIMIT, 101.00, 10, 2),
+    Order(20000003, 2001, "AAPL", SELL, LIMIT, 102.00, 10, 3),
+    Order(20000004, 2001, "AAPL", SELL, LIMIT, 103.00, 10, 4),
+    Order(20000005, 2001, "AAPL", SELL, LIMIT, 104.00, 10, 5),
+    Order(20000006, 2001, "AAPL", SELL, LIMIT, 105.00, 10, 6),
+    Order(20000007, 2001, "AAPL", SELL, LIMIT, 106.00, 10, 7),
+    Order(20000008, 2002, "AAPL", BUY,  LIMIT, 101.00, 10, 8),
+    Order(20000009, 2002, "AAPL", BUY,  LIMIT, 102.00, 10, 9),
+    Order(20000010, 2002, "AAPL", BUY,  LIMIT, 103.00, 10, 10),
+    Order(20000011, 2002, "AAPL", BUY,  LIMIT, 104.00, 10, 11),
+    Order(20000012, 2003, "AAPL", SELL, LIMIT,  95.00, 40, 12),
 ]
 
 # run backtest

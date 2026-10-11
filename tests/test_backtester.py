@@ -8,7 +8,7 @@ from order import Order, BUY, SELL, LIMIT
 from order_book import OrderBook
 from matching_engine import MatchingEngine
 from portfolio import Portfolio
-from mean_reversion import MeanReversionStrategy
+from strategies.mean_reversion import MeanReversionStrategy
 from backtester import Backtester
 
 
